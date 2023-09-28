@@ -1,5 +1,5 @@
 /**
- * @file hack_server.cpp
+ * @file webserver.cpp
  * @author adventune
  * @date 2023-09-28
  * @copyright Copyright (c) 2023
@@ -7,12 +7,12 @@
  * @brief Implements the web server
  */
 
-#include "hack_server.h"
+#include "webserver.h"
 #include <esp_http_server.h>
 #include "esp_log.h"
 #include "esp_system.h"
 
-static const char *TAG = "hack_server";
+static const char *TAG = "trawler_webserver";
 
 class HTTPServer {
 public:
@@ -55,7 +55,7 @@ static void log_server_requests(httpd_req_t *req) {
 }
 
 // index handler
-static const httpd_uri_t index_handler = {
+static const httpd_uri_t uri_index_get = {
         .uri       = "/",
         .method    = HTTP_GET,
         .handler   = [](httpd_req_t *req) {
@@ -66,7 +66,7 @@ static const httpd_uri_t index_handler = {
         .user_ctx  = NULL
 };
 
-void hack_init_server(void) {
+void trawler_init_server(void) {
     http.StartServer();
-    http.RegisterHandler(&index_handler);
+    http.RegisterHandler(&uri_index_get);
 }

@@ -1,5 +1,5 @@
 /**
- * @file hack_wifi.h
+ * @file wifi_controller.h
  * @author adventune
  * @date 2023-09-28
  * @copyright Copyright (c) 2023
@@ -7,8 +7,8 @@
  * @brief Provides interface for the wifi component
  */
 
-#ifndef ESP_HACK_EPSHACK_WIFI_H
-#define ESP_HACK_EPSHACK_WIFI_H
+#ifndef TRAWLER_WIFI_H
+#define TRAWLER_WIFI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,10 +21,10 @@ extern "C" {
 #include "esp_log.h"
 #include "nvs_flash.h"
 
-void hack_wifi_init_softap(void);
+void trawler_wifi_init_softap(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //ESP_HACK_EPSHACK_WIFI_H
+#endif //TRAWLER_WIFI_H

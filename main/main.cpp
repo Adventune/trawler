@@ -13,11 +13,11 @@
 #include "nvs_flash.h"
 #include "esp_netif.h"
 #include "esp_event.h"
-#include "../components/hack_wifi/hack_wifi.h"
-#include "../components/hack_server/hack_server.h"
+#include "wifi_controller.h"
+#include "webserver.h"
 
 // Define the log tag
-static const char *TAG = "hack_main";
+static const char *TAG = "trawler_main";
 
 extern "C" void app_main(void) {
     ESP_LOGI(TAG, "Booting up!");
@@ -33,6 +33,6 @@ extern "C" void app_main(void) {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
-    hack_wifi_init_softap();
-    hack_init_server();
+    trawler_wifi_init_softap();
+    trawler_init_server();
 }

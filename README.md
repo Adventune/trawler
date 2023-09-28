@@ -1,27 +1,9 @@
-# ESP-HACK (knockoff zero)
+# Trawler
 
-An ESP32 based knockoff of the Flipper Zero. (With totally different functionality)
+An ESP32 based knockoff of the Flipper Zero. (With totally different functionality).
+Imagine a broke university student getting inspired by a $170 device and trying to make a $10 version of it.
 
 ## Features
 
 - WiFi deauth attacks
-    - DOS & handshake capture
-
-## Development
-
-### Pre-requisites
-
-#### Software
-
-- [ESP-IDF & It's pre-requisites](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html)
-
-#### Hardware
-
-- ESP32 board
-
-### "Deploying" on ESP32 chip
-
-```bash
-. ${IDF_PATH}/export.sh # If you haven't already
-idf.py build flash monitor
-```
+    - DOS & handshake capture (passive listen or active deauth capture)

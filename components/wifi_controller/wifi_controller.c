@@ -1,5 +1,5 @@
 /**
- * @file hack_wifi.c
+ * @file wifi_controller.c
  * @author adventune
  * @date 2023-09-28
  * @copyright Copyright (c) 2023
@@ -7,7 +7,7 @@
  * @brief Implements the wifi component
  */
 
-#include "hack_wifi.h"
+#include "wifi_controller.h"
 
 #include <string.h>
 #include "esp_mac.h"
@@ -17,7 +17,7 @@
 
 #include "nvs_flash.h"
 
-static const char *TAG = "hack_wifi";
+static const char *TAG = "trawler_wifi_controller";
 
 #define ESP_WIFI_SSID      "ESP32"
 #define ESP_WIFI_PASS      "123456789"
@@ -38,7 +38,7 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t e
     }
 }
 
-void hack_wifi_init_softap(void) {
+void trawler_wifi_init_softap(void) {
     esp_netif_create_default_wifi_ap();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
