@@ -55,7 +55,7 @@ static void log_server_requests(httpd_req_t *req) {
 }
 
 // index handler
-static const httpd_uri_t indexHandler = {
+static const httpd_uri_t index_handler = {
         .uri       = "/",
         .method    = HTTP_GET,
         .handler   = [](httpd_req_t *req) {
@@ -68,6 +68,5 @@ static const httpd_uri_t indexHandler = {
 
 void hack_init_server(void) {
     http.StartServer();
-    http.RegisterHandler(&rebootHandler);
-    http.RegisterHandler(&indexHandler);
+    http.RegisterHandler(&index_handler);
 }

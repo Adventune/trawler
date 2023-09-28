@@ -7,14 +7,15 @@
  * @brief Implements the wifi component
  */
 
+#include "hack_wifi.h"
+
 #include <string.h>
 #include "esp_mac.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
-#include "nvs_flash.h"
 
-#include "hack_wifi.h"
+#include "nvs_flash.h"
 
 static const char *TAG = "hack_wifi";
 

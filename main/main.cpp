@@ -13,12 +13,13 @@
 #include "nvs_flash.h"
 #include "esp_netif.h"
 #include "esp_event.h"
-#include "../components/hack-wifi/hack-wifi.h"{
-#include "../components/hack-server/hack_server.h"
+#include "../components/hack_wifi/hack_wifi.h"
+#include "../components/hack_server/hack_server.h"
 
 // Define the log tag
-static const char *TAG = "hack-main";
-extern "C" void app_main(void)
+static const char *TAG = "hack_main";
+
+extern "C" void app_main(void) {
     ESP_LOGI(TAG, "Booting up!");
 
     //Initialize NVS

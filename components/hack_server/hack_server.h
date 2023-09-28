@@ -6,6 +6,7 @@
  *
  * @brief Provides interface for the web server
  */
+
 #ifndef ESP_HACK_ESP_HACK_SERVER_H
 #define ESP_HACK_ESP_HACK_SERVER_H
 
