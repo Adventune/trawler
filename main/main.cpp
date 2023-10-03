@@ -33,6 +33,6 @@ extern "C" void app_main(void) {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
-    trawler_wifi_init_softap();
-    trawler_init_server();
+    wifictl_mgmt_ap_start();
+    webserver_start();
 }
