@@ -10,19 +10,9 @@
 #ifndef TRAWLER_WIFI_H
 #define TRAWLER_WIFI_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <string.h>
-#include "esp_mac.h"
 #include "esp_wifi.h"
-#include "esp_event.h"
-#include "esp_log.h"
 
-#include "nvs_flash.h"
-
-    /**
+/**
  * @brief Starts AP with given config
  *
  * @param wifi_config
@@ -47,7 +37,8 @@ void wifictl_mgmt_ap_start();
  * @param ap_record
  * @param password password for target network
  */
-void wifictl_sta_connect_to_ap(const wifi_ap_record_t *ap_record, const char password[]);
+void wifictl_sta_connect_to_ap(const wifi_ap_record_t *ap_record,
+                               const char password[]);
 
 /**
  * @brief Disconnects station interface from currently connected AP
@@ -65,13 +56,15 @@ void wifictl_set_ap_mac(const uint8_t *mac_ap);
 /**
  * @brief Saves current AP interface MAC to given parameter
  *
- * @attention this function expects that the mac_ap points to already allocated memory (6 bytes)
+ * @attention this function expects that the mac_ap points to already allocated
+ * memory (6 bytes)
  * @param mac_ap 6 bytes memory block
  */
 void wifictl_get_ap_mac(uint8_t *mac_ap);
 
 /**
- * @brief Restores original AP interface MAC that was set during Wi-Fi initialisation.
+ * @brief Restores original AP interface MAC that was set during Wi-Fi
+ * initialisation.
  */
 void wifictl_restore_ap_mac();
 
@@ -89,8 +82,4 @@ void wifictl_get_sta_mac(uint8_t *mac_sta);
  */
 void wifictl_set_channel(uint8_t channel);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif //TRAWLER_WIFI_H
+#endif // TRAWLER_WIFI_H

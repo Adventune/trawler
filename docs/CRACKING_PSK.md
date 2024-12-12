@@ -5,23 +5,24 @@ Quick overview of how to crack PSKs.
 ## Requirements
 
 - [hashcat](https://hashcat.net/hashcat/)
-    - `sudo apt update && sudo apt install hashcat`
+  - `sudo apt update && sudo apt install hashcat`
 - hsxtools
-    - `sudo apt update && sudo apt install hsxtools`
+  - `sudo apt update && sudo apt install hsxtools`
 
 ## Preparation
 
 1. Capture EAPOL-Key frames and download hccapx file
 2. Convert hccapx to hashcat format
-    - `hcxhash2cap --hccapx=capture.hccapx`
-    - Convert cap to hashcat format at [hashcat.net/cap2hashcat](https://hashcat.net/cap2hashcat/)
+   - `hcxhash2cap --hccapx=capture.hccapx`
+   - Convert cap to hashcat format at
+     [hashcat.net/cap2hashcat](https://hashcat.net/cap2hashcat/)
 
 Use the resulting .hc22000 for cracking.
-
 
 ## Cracking
 
 Hashcat network protocol hash types (-m, --hash-type):
+
 ```bash
   16100 | TACACS+                                             | Network Protocol
   11400 | SIP digest authentication (MD5)                     | Network Protocol
@@ -59,6 +60,7 @@ Hashcat network protocol hash types (-m, --hash-type):
 ```
 
 Hashcat symbols:
+
 ```bash
   ?l = abcdefghijklmnopqrstuvwxyz
   ?u = ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -69,6 +71,7 @@ Hashcat symbols:
 ```
 
 Hashcat attack modes (-a, --attack-mode):
+
 ```bash
   0 | Straight
   1 | Combination
@@ -77,6 +80,7 @@ Hashcat attack modes (-a, --attack-mode):
 ```
 
 Hashcat workloads (-w, --workload-profile):
+
 ```bash
   # | Performance | Runtime | Power Consumption | Desktop Impact
  ===+=============+=========+===================+=================

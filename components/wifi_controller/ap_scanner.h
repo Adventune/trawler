@@ -9,10 +9,6 @@
 #ifndef AP_SCANNER_H
 #define AP_SCANNER_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "esp_wifi_types.h"
 
 /**
@@ -20,8 +16,8 @@ extern "C" {
  *
  */
 typedef struct {
-    uint16_t count;
-    wifi_ap_record_t records[10]; // Remember to change in ap_scanner.c:25 too
+  uint16_t count;
+  wifi_ap_record_t records[10]; // Remember to change in ap_scanner.c:25 too
 } wifictl_ap_records_t;
 
 /**
@@ -35,7 +31,7 @@ void wifictl_scan_nearby_aps();
  *
  * @return const wifictl_ap_records_t*
  */
-const wifictl_ap_records_t *wifictl_get_ap_records();
+wifictl_ap_records_t *wifictl_get_ap_records();
 
 /**
  * @brief Returns AP record on given index
@@ -43,10 +39,6 @@ const wifictl_ap_records_t *wifictl_get_ap_records();
  * @param index
  * @return const wifi_ap_record_t*
  */
-const wifi_ap_record_t *wifictl_get_ap_record(unsigned index);
-
-#ifdef __cplusplus
-}
-#endif
+wifi_ap_record_t *wifictl_get_ap_record(unsigned index);
 
 #endif
