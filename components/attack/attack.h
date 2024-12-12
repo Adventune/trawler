@@ -75,7 +75,7 @@ typedef struct {
   wifi_ap_record_t ap_record;
 } attack_wifi_config_t;
 
-static attack_errors_t am_start_wifi_attack();
+attack_errors_t am_start_wifi_attack();
 
 // Current attack status
 attack_status_t am_current_attack;

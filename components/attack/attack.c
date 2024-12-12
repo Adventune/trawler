@@ -20,10 +20,12 @@ static const char *TAG = "trawler_attack_manager";
 
 // Initialization
 // Private functions and values
-static attack_errors_t am_start_wifi_attack() {
+attack_errors_t am_start_wifi_attack() {
   ESP_LOGI(TAG, "Starting wifi attack");
   switch (am_current_wifi_config.type) {
   case DEAUTH:
+    ESP_LOGI(TAG, "Starting handshake capture attack with deauth");
+    return attack_wifi_start_handshake();
   case PASSIVE:
     ESP_LOGI(TAG, "Starting handshake capture attack");
     return attack_wifi_start_handshake();

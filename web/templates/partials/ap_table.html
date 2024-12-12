@@ -1,0 +1,17 @@
+{{ define "ap_table" }}
+<thead class="sticky top-0">
+    <tr>
+        <th>SSID</th>
+        <th>BSSID</th>
+        <th>RSSI</th>
+    </tr>
+</thead>
+{{ range . }}
+<tbody>
+    <tr id="{{.ID}}" onclick="selectAp(this)">
+        <td>{{.SSID}}</td>
+        <td>{{.BSSID}}</td>
+        <td>{{.RSSI}}</td>
+    </tr>
+</tbody>
+{{end}} {{ end }}

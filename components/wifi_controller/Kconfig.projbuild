@@ -1,0 +1,13 @@
+menu "Wifi controller configuration"
+config WIFI_SSID
+        string "Wifi SSID to connect to"
+        default ""
+        help
+            SSID of WiFi (network name)
+config WIFI_PASSWORD
+        string "PASSWORD for the network connecting to"
+        default ""
+        help
+            WiFi password (WPA or WPA2), can be left blank if the network has no security set
+
+endmenu

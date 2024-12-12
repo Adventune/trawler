@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <title>Trawler management</title>
+    <script src="static/index.js"></script>
+    <link rel="stylesheet" href="/static/styles.css" />
+    {{ template "imports" . }}
+</head>
+
+<body onLoad="getStatus()">
+    <header class="flex items-center w-full border-b border-gray-100">
+        <h1 class="w-fit px-4">Trawler</h1>
+    </header>
+    <div class="sidebar p-2 border-r border-gray-100">
+        <h3 class="w-fit">Attack Category</h3>
+        <div class="flex flex-col gap-2 m-2">
+            <a href="?wifi=1">WiFi</a>
+        </div>
+    </div>
+    {{ if .CategoryWifi }} {{ template "wifi" . }} {{end}}
+</body>
+
+</html>

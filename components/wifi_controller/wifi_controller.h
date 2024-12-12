@@ -17,7 +17,7 @@
  *
  * @param wifi_config
  */
-void wifictl_ap_start(wifi_config_t *wifi_config);
+void wifictl_ap_start();
 
 /**
  * @brief Stops running AP
@@ -37,8 +37,7 @@ void wifictl_mgmt_ap_start();
  * @param ap_record
  * @param password password for target network
  */
-void wifictl_sta_connect_to_ap(const wifi_ap_record_t *ap_record,
-                               const char password[]);
+void wifictl_sta_connect();
 
 /**
  * @brief Disconnects station interface from currently connected AP

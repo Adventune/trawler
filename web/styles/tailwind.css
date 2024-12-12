@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SITE ELEMENTS */
+* {
+    font-family: 'Jetbrains Mono', sans-serif;
+    font-display: swap;
+    @apply box-content scroll-smooth text-gray-100;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-rows: 60px auto 10px;
+    grid-template-areas:
+        'header header'
+        'sidebar main'
+        'footer footer';
+    @apply bg-zinc-900 h-screen;
+}
+
+header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.main-content {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+/* TEXT ELEMENTS */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold;
+}
+
+h1 {
+    @apply text-4xl;
+}
+
+h2 {
+    @apply text-3xl;
+}
+
+h3 {
+    @apply text-2xl;
+}
+
+h4 {
+    @apply text-xl;
+}
+
+h5 {
+    @apply text-lg;
+}
+
+p,
+a {
+    @apply text-base;
+}
+
+a {
+    @apply underline;
+}
+
+/* TABLE */
+
+table,
+tr {
+    @apply text-center;
+}
+
+th,
+td {
+    @apply p-4;
+}
+
+thead {
+    @apply bg-zinc-800;
+}
+
+tr:hover,
+tr.selected {
+    @apply cursor-pointer bg-zinc-800;
+}
+
+/* COMPONENTS */
+
+button {
+    @apply bg-zinc-800 py-1 rounded px-2;
+}
+
+select,
+input {
+    @apply bg-zinc-800 py-1 rounded px-2;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* HTMX */
+
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    display: inline;
+}
+
+.htmx-request.htmx-indicator {
+    display: inline;
+}

@@ -10,7 +10,6 @@
 #include "esp_err.h"
 #include "esp_event.h"
 #include "esp_log.h"
-#include "esp_wifi_types.h"
 #include "frame_analyzer.h"
 #include "hccapx_serializer.h"
 #include "pcap_serializer.h"
@@ -45,9 +44,6 @@ static void eapolkey_frame_handler(void *args, esp_event_base_t event_base,
  */
 attack_errors_t attack_wifi_start_handshake() {
   int deauth_interval_seconds = 15;
-
-  ESP_LOGI(TAG, "Starting de-auth attack");
-
   const wifi_ap_record_t ap_record = am_get_current_wifi_config()->ap_record;
 
   pcap_serializer_init();

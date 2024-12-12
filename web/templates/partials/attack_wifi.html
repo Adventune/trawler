@@ -1,0 +1,70 @@
+{{ define "wifi"}}
+<div class="main-content">
+    <div class="flex gap-8 px-8 py-6">
+        <section class="flex flex-col gap-2">
+            <h2>Attack configuration</h2>
+            <form onSubmit="prepareAttack(); return false;" class="flex flex-col gap-4">
+                <fieldset class="flex flex-col gap-2 p-4 border border-gray-50 rounded">
+                    <h4>Select target</h4>
+                    <table id="ap-list" class="block max-h-64 overflow-scroll">
+                        <p class="htmx-indicator" id="ap-indicator">
+                            Loading... Hang on!
+                        </p>
+                    </table>
+                    <button hx-get="/get/aps" hx-target="#ap-list" hx-indicator="#ap-indicator" type="button"
+                        class="w-fit self-end">
+                        Refresh
+                    </button>
+                </fieldset>
+
+                <fieldset class="flex flex-col gap-2 p-4 border border-gray-50 rounded">
+                    <h4>Attack configuration</h4>
+                    <p>
+                        <label for="attack_type">Attack type:</label>
+                        <select id="attack_type" onChange="updateConfigurableFields(this)" required>
+                            <option selected value="0">
+                                ATTACK_TYPE_PASSIVE
+                            </option>
+                            <option value="1">ATTACK_TYPE_DEAUTH</option>
+                            <option value="2">ATTACK_TYPE_DOS</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="attack_method">Attack method:</label>
+                        <select disabled id="attack_method" required>
+                            <option disabled hidden selected value="">
+                                NOT AVAILABLE
+                            </option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="attack_timeout">Attack timeout (seconds):</label>
+                        <input id="attack_timeout" max="255" min="0" required type="number" value="" placeholder="xx" />
+                    </p>
+                    <button type="submit" class="w-fit self-end">
+                        Prepare attack
+                    </button>
+                </fieldset>
+            </form>
+            <div style="
+                    display: flex;
+                    flex-direction: row;
+                    gap: 8px;
+                    margin-top: 16px;
+                ">
+                <button onclick="startAttack()">Start attack</button>
+                <button onclick="stopAttack()">Stop attack</button>
+                <button onclick="resetAttack()">Reset attack</button>
+            </div>
+        </section>
+        <section>
+            <div class="flex flex-col gap-2">
+                <h2>Attack Status</h2>
+                <p id="attack_status"></p>
+                <h3>Attack content</h3>
+                <div id="attack_content"></div>
+            </div>
+        </section>
+    </div>
+</div>
+{{ end }}

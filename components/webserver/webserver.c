@@ -1,5 +1,5 @@
 /**
- * @file webserver.cpp
+ * @file webserver.c
  * @author adventune
  * @date 2023-09-28
  * @copyright Copyright (c) 2023
@@ -21,26 +21,14 @@ static const char *TAG = "trawler_webserver";
 static httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 static httpd_handle_t server = NULL;
 
-static void log_server_requests(httpd_req_t *req) {
+static void request_pre_handle(httpd_req_t *req) {
+  // Enable CORS to allow web app requests
+  httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
   ESP_LOGI(TAG, "Request received on URI '%s'", req->uri);
 }
 
-static esp_err_t index_handler(httpd_req_t *req) {
-  log_server_requests(req);
-  // Import index_html file
-  extern const uint8_t index_html_start[] asm("_binary_index_html_start");
-  extern const uint8_t index_html_end[] asm("_binary_index_html_end");
-  httpd_resp_send(req, (char *)index_html_start,
-                  index_html_end - index_html_start);
-  return ESP_OK;
-}
-
-// index uri & handler
-static const httpd_uri_t uri_index_get = {
-    .uri = "/", .method = HTTP_GET, .handler = index_handler, .user_ctx = NULL};
-
 static esp_err_t attack_prepare_handler(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   // Parse attack information from the request
   webserver_attack_wifi_request_t attack_request;
   httpd_req_recv(req, (char *)&attack_request,
@@ -63,7 +51,7 @@ static const httpd_uri_t uri_wifi_attack_prepare_post = {
     .user_ctx = NULL};
 
 static esp_err_t attack_start_handler(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   esp_err_t res = httpd_resp_send(req, NULL, 0);
   am_start_attack();
   return res;
@@ -78,8 +66,7 @@ static const httpd_uri_t uri_attack_start_post = {.uri = "/attack-start",
 
 static esp_err_t attack_content_handler(httpd_req_t *req) {
   // Commented temporarily for clearer output during development
-  // log_server_requests(req);
-
+  request_pre_handle(req);
   ESP_ERROR_CHECK(httpd_resp_set_type(req, HTTPD_TYPE_OCTET));
   // first send attack result header
   ESP_ERROR_CHECK(
@@ -99,7 +86,7 @@ static const httpd_uri_t uri_attack_content_get = {.uri = "/attack-content",
                                                    .user_ctx = NULL};
 
 static esp_err_t capture_hccapx(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   ESP_LOGD(TAG, "Providing HCCAPX file...");
   ESP_ERROR_CHECK(httpd_resp_set_type(req, HTTPD_TYPE_OCTET));
   return httpd_resp_send(req, (char *)hccapx_serializer_get(),
@@ -112,7 +99,7 @@ static const httpd_uri_t uri_capture_hccapx_get = {.uri = "/capture.hccapx",
                                                    .user_ctx = NULL};
 
 static esp_err_t capture_pcap(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   ESP_LOGD(TAG, "Providing PCAP file...");
   ESP_ERROR_CHECK(httpd_resp_set_type(req, HTTPD_TYPE_OCTET));
   return httpd_resp_send(req, (char *)pcap_serializer_get_buffer(),
@@ -125,7 +112,7 @@ static const httpd_uri_t uri_capture_pcap_get = {.uri = "/capture.pcap",
                                                  .user_ctx = NULL};
 
 static esp_err_t ap_list_handler(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   wifictl_scan_nearby_aps();
 
   const wifictl_ap_records_t *ap_records;
@@ -150,7 +137,7 @@ static const httpd_uri_t uri_ap_list_get = {.uri = "/ap-list",
                                             .user_ctx = NULL};
 
 static esp_err_t attack_stop_handler(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   httpd_resp_send(req, NULL, 0);
   am_stop_attack();
   return ESP_OK;
@@ -163,7 +150,7 @@ static const httpd_uri_t uri_stop_attack = {.uri = "/attack-stop",
                                             .user_ctx = NULL};
 
 static esp_err_t attack_reset_handler(httpd_req_t *req) {
-  log_server_requests(req);
+  request_pre_handle(req);
   httpd_resp_send(req, NULL, 0);
   am_reset_attack();
   return ESP_OK;
@@ -175,12 +162,10 @@ static const httpd_uri_t uri_reset_attack = {.uri = "/attack-reset",
                                              .user_ctx = NULL};
 
 void webserver_start() {
-
   config.max_uri_handlers = 15;
   ESP_LOGI(TAG, "Starting server on port: '%d'", config.server_port);
   if (httpd_start(&server, &config) == ESP_OK) {
     /* Register URI handlers */
-    httpd_register_uri_handler(server, &uri_index_get);
     httpd_register_uri_handler(server, &uri_capture_pcap_get);
     httpd_register_uri_handler(server, &uri_capture_hccapx_get);
     httpd_register_uri_handler(server, &uri_wifi_attack_prepare_post);
