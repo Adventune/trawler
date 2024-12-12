@@ -6,3 +6,4 @@ build/
 sdkconfig
 sdkconfig.old
 .idea/
+.cache/
